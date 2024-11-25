@@ -25,6 +25,8 @@ model Usuario {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   unidadesCompletadas UnidadeCompletada[]
+
+  @@map("usuarios")
 }
 
 model TipoUsuario {
@@ -32,6 +34,8 @@ model TipoUsuario {
   rotulo String @db.VarChar(10)
   
   usuarios Usuario[]
+
+  @@map("tipos_usuarios")
 }
 
 model Unidade{
@@ -40,6 +44,8 @@ model Unidade{
   createdAt DateTime @default(now()) @map("created_at")
 
   unidadeCompletada UnidadeCompletada[]
+
+  @@map("unidades")
 }
 
 model UnidadeCompletada {
@@ -50,4 +56,6 @@ model UnidadeCompletada {
   unidadeId String @db.Char(40)
   usuario Usuario @relation(fields: [usuarioId], references: [id])
   usuarioId String @db.Char(40)
+
+  @@map("unidades_completadas")
 }
