@@ -1,0 +1,42 @@
+services:
+  back:
+    container_name: tcc_backend
+    build:
+      context: ./backend
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+    volumes:
+      - ./backend:/app
+    environment:
+      - NODE_ENV=${NODE_ENV}
+    depends_on:
+      - bd
+
+  bd:
+    container_name: tcc_bd
+    image: mysql:latest
+    ports:
+      - ${MYSQL_PORT}:3306
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql_tcc_bd:/var/lib/mysql
+      - mysql_tcc_bd_config:/etc/mysql
+
+  phpmyadmin:
+    container_name: tcc_phpmyadmin
+    image: phpmyadmin
+    environment:
+      - PMA_HOST=bd
+      - PMA_PORT=3306
+      - PMA_USER=${PMA_USER}
+      - PMA_PASSWORD=${PMA_PASSWORD}
+    ports:
+      - 8080:80
+    depends_on:
+      - bd
+
+volumes:
+  mysql_tcc_bd:
+  mysql_tcc_bd_config:
