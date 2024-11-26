@@ -12,6 +12,7 @@ const PORT = process.env.PORT ?? 7777;
 //   res.send("Teste!");
 // });
 
+app.use(express.json());
 app.use(router);
 
 app.listen(PORT, () => {

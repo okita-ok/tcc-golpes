@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -13,49 +14,49 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Usuario {
-  id String @id @default(uuid()) @db.Char(40)
-  nome String @db.VarChar(100)
+model User {
+  id String @id @default(uuid()) @db.Char(36)
+  name String @db.VarChar(100)
   email String @unique @db.VarChar(100)
-  senha String @db.Char(60)
-  tipoUsuario TipoUsuario @relation(fields: [tipoUsuarioId], references: [id])
-  tipoUsuarioId String @db.Char(40)
-  pontuacao Int @default(0)
+  password String @db.Char(60)
+  userType UserType @relation(fields: [userTypeId], references: [id])
+  userTypeId String @db.Char(36)
+  points Int @default(0)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  unidadesCompletadas UnidadeCompletada[]
+  completedUnits CompletedUnit[]
 
-  @@map("usuarios")
+  @@map("users")
 }
 
-model TipoUsuario {
-  id String @id @default(uuid()) @db.Char(40)
-  rotulo String @db.VarChar(10)
+model UserType {
+  id String @id @default(uuid()) @db.Char(36)
+  label String @db.VarChar(10)
   
-  usuarios Usuario[]
+  users User[]
 
-  @@map("tipos_usuarios")
+  @@map("user_types")
 }
 
-model Unidade{
-  id String @id @default(uuid()) @db.Char(40)
-  titulo String @db.VarChar(100)
+model Unit{
+  id String @id @default(uuid()) @db.Char(36)
+  title String @db.VarChar(100)
   createdAt DateTime @default(now()) @map("created_at")
 
-  unidadeCompletada UnidadeCompletada[]
+  completedUnit CompletedUnit[]
 
-  @@map("unidades")
+  @@map("units")
 }
 
-model UnidadeCompletada {
-  id String @id @default(uuid()) @db.Char(40)
-  completada Boolean @default(false)
-  completouEm DateTime @default(now()) @map("completou_em")
-  unidade Unidade @relation(fields: [unidadeId], references: [id])
-  unidadeId String @db.Char(40)
-  usuario Usuario @relation(fields: [usuarioId], references: [id])
-  usuarioId String @db.Char(40)
+model CompletedUnit {
+  id String @id @default(uuid()) @db.Char(36)
+  completed Boolean @default(false)
+  completedAt DateTime @default(now()) @map("completed_at")
+  unit Unit @relation(fields: [unitId], references: [id])
+  unitId String @db.Char(36)
+  user User @relation(fields: [userId], references: [id])
+  userId String @db.Char(36)
 
-  @@map("unidades_completadas")
+  @@map("completed_units")
 }
