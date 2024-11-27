@@ -1,5 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
+
+import session from "./middlewares/session";
 import router from "./router";
 
 // ----- CONFIGURACOES -----
@@ -8,10 +10,7 @@ const app = express();
 const PORT = process.env.PORT ?? 7777;
 
 // ----- MIDDLEWARES  -----
-// app.get("/", (req, res) => {
-//   res.send("Teste!");
-// });
-
+app.use(session());
 app.use(express.json());
 app.use(router);
 
