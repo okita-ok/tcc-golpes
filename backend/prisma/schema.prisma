@@ -58,5 +58,6 @@ model CompletedUnit {
   user User @relation(fields: [userId], references: [id])
   userId String @db.Char(36)
 
+  @@unique([userId, unitId])
   @@map("completed_units")
 }
