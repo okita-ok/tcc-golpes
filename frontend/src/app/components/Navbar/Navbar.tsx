@@ -5,9 +5,12 @@ export default function Navbar() {
       style={{ width: "250px" }}
     >
       <div className="container-fluid">
-        <a className="navbar-brand" href="/">
+        <a className="navbar-brand mt-1" href="/">
           <h4>Identificando Golpes</h4>
         </a>
+
+        {/* Colocar aqui o MiniProfile? */}
+
         <ul className="nav nav-pills flex-column me-auto">
           <li className="nav-item">
             <a className="nav-link" href="/unidade/unidade1">
