@@ -17,7 +17,7 @@ const listUnits = async (req: Request, res: Response) => {
 };
 
 const listCompletedUnits = async (req: Request, res: Response) => {
-  const { userId } = req.body;
+  const userId = req.session.uid!;
   try {
     const list = await getAllCompletedUnits(userId);
     res.status(StatusCodes.OK).json(list);
@@ -28,7 +28,7 @@ const listCompletedUnits = async (req: Request, res: Response) => {
 
 const checkIfCompleted = async (req: Request, res: Response) => {
   const { id: unitId } = req.params;
-  const { userId } = req.body;
+  const userId = req.session.uid!;
 
   try {
     const completedUnit = await getCompletedUnit(userId, unitId);
@@ -45,7 +45,7 @@ const checkIfCompleted = async (req: Request, res: Response) => {
 
 const markAsCompleted = async (req: Request, res: Response) => {
   const { id: unitId } = req.params;
-  const { userId } = req.body;
+  const userId = req.session.uid!;
   try {
     const completedUnit = await setUnitAsCompleted(userId, unitId);
     console.log(completedUnit);
