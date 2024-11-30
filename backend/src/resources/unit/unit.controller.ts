@@ -35,7 +35,6 @@ const checkIfCompleted = async (req: Request, res: Response) => {
     if (!completedUnit) {
       res.status(StatusCodes.NOT_FOUND).send(ReasonPhrases.NOT_FOUND);
     } else {
-      console.log(completedUnit);
       res.status(StatusCodes.OK).json(completedUnit);
     }
   } catch (err) {
