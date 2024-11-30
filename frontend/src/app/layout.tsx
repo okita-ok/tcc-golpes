@@ -22,7 +22,7 @@ export default function RootLayout({
           <Navbar />
           <div
             style={{
-              marginLeft: "250px",
+              marginLeft: "270px",
               paddingLeft: "20px",
               paddingTop: "10px",
             }}

@@ -5,9 +5,9 @@ export default function Navbar() {
   return (
     <nav
       className="navbar bg-light border-body flex-column position-fixed vh-100"
-      style={{ width: "250px" }}
+      style={{ width: "270px" }}
     >
-      <div className="container-fluid">
+      <div className="container">
         <a className="navbar-brand mt-1" href="/">
           <h4>Identificando Golpes</h4>
         </a>

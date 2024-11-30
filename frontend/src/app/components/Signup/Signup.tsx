@@ -48,9 +48,9 @@ function SignUp() {
   return (
     <>
       <div className="container col-3 mt-5">
-        <h1>Cadastro</h1>
+        <h1 className="text-center">Cadastro</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-2">
+          <div className="mb-2 mt-5">
             <span className="text-danger">* = Campo Obrigatório</span>
           </div>
 

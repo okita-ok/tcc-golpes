@@ -3,6 +3,7 @@
 
 import api from "@/app/services/api";
 import { AuthContext } from "@/app/State/AuthProvider";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -43,11 +44,11 @@ function Login() {
   return (
     <>
       <div className="container col-3 mt-5">
-        <h1>Login de Usuário</h1>
+        <h1 className="text-center">Login</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           {error && <span className="text-danger">{error}</span>}
-          <div className="mb-3">
+          <div className="mb-3 mt-4">
             <label htmlFor="email" className="form-label">
               Email
             </label>
@@ -82,6 +83,14 @@ function Login() {
             Entrar
           </button>
         </form>
+
+        <div className="mt-5">
+          <hr />
+          <p className="text-center">Não possui uma conta?</p>
+          <Link href="/signup">
+            <button className="btn btn-warning w-100">Criar uma conta</button>
+          </Link>
+        </div>
       </div>
     </>
   );

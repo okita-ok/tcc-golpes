@@ -17,12 +17,10 @@ function MiniProfile() {
       >
         Olá, <b>{auth ? auth.name : "Faça seu Login!"}</b>
         <br />
-        {auth && points}
+        {auth && `Pontuação: ${points} pts`}
         {!auth && (
           <Link href={"/login"} className="d-grid">
-            <button className="btn btn-secondary mt-2 mb-2">
-              Entrar / Cadastrar
-            </button>
+            <button className="btn btn-secondary mt-2 mb-2">Entrar</button>
           </Link>
         )}
       </div>
