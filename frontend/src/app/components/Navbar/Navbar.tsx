@@ -1,3 +1,6 @@
+"use client";
+import MiniProfile from "../MiniProfile/MiniProfile";
+
 export default function Navbar() {
   return (
     <nav
@@ -9,9 +12,9 @@ export default function Navbar() {
           <h4>Identificando Golpes</h4>
         </a>
 
-        {/* Colocar aqui o MiniProfile? */}
+        <MiniProfile />
 
-        <ul className="nav nav-pills flex-column me-auto">
+        <ul className="nav nav-pills flex-column me-auto mt-2">
           <li className="nav-item">
             <a className="nav-link" href="/unidade/unidade1">
               Unidade 1

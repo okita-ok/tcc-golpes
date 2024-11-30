@@ -12,6 +12,17 @@ services:
     depends_on:
       - bd
 
+  front:
+    container_name: tcc_frontend
+    build:
+      context: ./frontend
+    ports:
+      - ${FRONTEND_PORT}:${FRONTEND_PORT}
+    volumes:
+      - ./frontend:/app
+    environment:
+      - NODE_ENV=${NODE_ENV}
+
   bd:
     container_name: tcc_bd
     image: mysql:latest

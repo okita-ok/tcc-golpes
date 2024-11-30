@@ -3,7 +3,9 @@
 
 import api from "@/app/services/api";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 type Inputs = {
   name: string;
@@ -21,15 +23,24 @@ function SignUp() {
   } = useForm<Inputs>();
 
   const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const { pwConfirm, ...creds } = data;
 
-    console.log(creds);
-    // api.post("/signup", creds, { withCredentials: true }).then((data) => {
-    //   console.log(creds);
-    //   router.push("/login");
-    // });
+    api
+      .post("/auth/signup", creds, { withCredentials: true })
+      .then((data) => {
+        toast.success("Usuário criado com sucesso!");
+        router.push("/login");
+      })
+      .catch((err) => {
+        if (err.response.status === 409) setError("Este email já está em uso.");
+        else {
+          setError("Ocorreu um erro.");
+        }
+        console.log(err);
+      });
   };
 
   const password = watch("password");
@@ -43,6 +54,7 @@ function SignUp() {
             <span className="text-danger">* = Campo Obrigatório</span>
           </div>
 
+          {error && <span className="text-danger">{error}</span>}
           <div className="mb-3">
             <label htmlFor="name" className="form-label">
               Nome *
@@ -52,10 +64,13 @@ function SignUp() {
               className="form-control"
               id="name"
               aria-describedby="name"
-              {...register("name", { required: true })}
+              {...register("name", { required: true, minLength: 3 })}
             />
-            {errors.name && (
+            {errors.name?.type === "required" && (
               <span className="text-danger">Esse campo é obrigatório</span>
+            )}
+            {errors.name?.type === "minLength" && (
+              <span className="text-danger">Minímo de 3 (três) caracteres</span>
             )}
           </div>
           <div className="mb-3">
