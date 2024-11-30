@@ -6,7 +6,7 @@ const router = Router();
 
 router.get("/", unitController.listUnits);
 router.get("/completed", checkAuth, unitController.listCompletedUnits);
-router.post("/:id/check", checkAuth, unitController.checkIfCompleted);
-router.post("/:id/completed", checkAuth, unitController.markAsCompleted);
+router.get("/:id", checkAuth, unitController.checkIfCompleted);
+router.post("/:id", checkAuth, unitController.markAsCompleted);
 
 export default router;

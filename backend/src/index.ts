@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 
+import cors from "cors";
 import session from "./middlewares/session";
 import router from "./router";
 
@@ -10,6 +11,7 @@ const app = express();
 const PORT = process.env.PORT ?? 7777;
 
 // ----- MIDDLEWARES  -----
+app.use(cors({ credentials: true, origin: "http://localhost:7171" }));
 app.use(session());
 app.use(express.json());
 app.use(router);

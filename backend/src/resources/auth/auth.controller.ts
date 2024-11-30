@@ -31,7 +31,10 @@ const login = async (req: Request, res: Response) => {
     } else {
       req.session.uid = user.id;
       req.session.userTypeId = user.userTypeId;
-      res.status(StatusCodes.OK).send(ReasonPhrases.OK);
+      res.status(StatusCodes.OK).json({
+        name: user.name,
+        userType: user.userTypeId === UserTypes.USER ? "user" : "admin",
+      });
     }
   } catch (err) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(err);

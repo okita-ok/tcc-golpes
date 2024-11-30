@@ -33,22 +33,33 @@ export const setUnitAsCompleted = async (
   userId: string,
   unitId: string
 ): Promise<CompletedUnit | null> => {
-  const completedUnit = await prisma.completedUnit.upsert({
-    where: {
-      userId_unitId: {
+  const [completedUnit] = await prisma.$transaction([
+    prisma.completedUnit.upsert({
+      where: {
+        userId_unitId: {
+          userId,
+          unitId,
+        },
+      },
+      update: {
+        completed: true,
+        completedAt: new Date(),
+      },
+      create: {
         userId,
         unitId,
+        completed: true,
       },
-    },
-    update: {
-      completed: true,
-      completedAt: new Date(),
-    },
-    create: {
-      userId,
-      unitId,
-      completed: true,
-    },
-  });
+    }),
+
+    prisma.user.update({
+      where: { id: userId },
+      data: {
+        points: {
+          increment: 100,
+        },
+      },
+    }),
+  ]);
   return completedUnit;
 };
