@@ -28,7 +28,9 @@ function Login() {
     api
       .post("/auth/login", data, { withCredentials: true })
       .then((data) => {
-        setAuth({ name: data.data.name, userType: data.data.userType });
+        const userInfo = { name: data.data.name, userType: data.data.userType };
+        setAuth(userInfo);
+        localStorage.setItem("auth", JSON.stringify(userInfo));
         router.push("/");
       })
       .catch((err) => {

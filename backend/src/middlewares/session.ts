@@ -7,7 +7,7 @@ function session() {
     secret: process.env.SESSION_SECRET!,
     resave: true,
     saveUninitialized: true,
-    cookie: { httpOnly: true },
+    cookie: { httpOnly: true, maxAge: 1000 * 60 * 30 },
   });
 }
 

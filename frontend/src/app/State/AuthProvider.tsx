@@ -6,6 +6,7 @@ import {
   createContext,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from "react";
 import { Auth } from "../types/auth";
 
@@ -27,6 +28,13 @@ interface AuthProviderProps {
 
 function AuthProvider({ children }: AuthProviderProps) {
   const [auth, setAuth] = useState<Auth | null>(null);
+
+  useEffect(() => {
+    const localAuth = localStorage.getItem("auth");
+    if (localAuth) {
+      setAuth(JSON.parse(localAuth));
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
