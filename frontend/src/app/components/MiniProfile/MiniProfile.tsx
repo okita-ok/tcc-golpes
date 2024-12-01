@@ -2,15 +2,16 @@
 
 import api from "@/app/services/api";
 import { AuthContext } from "@/app/State/AuthProvider";
+import { UnitContext } from "@/app/State/UnitProvider";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { toast } from "react-toastify";
 
 function MiniProfile() {
-  const points = 200;
-
   const { auth, setAuth } = useContext(AuthContext);
+
+  const { pontos } = useContext(UnitContext);
 
   const router = useRouter();
 
@@ -43,7 +44,7 @@ function MiniProfile() {
         <br />
         {auth && (
           <>
-            Pontuação: {points}
+            Pontuação: {pontos}
             <div className="d-grid">
               <button className="btn btn-danger mt-2 mb-2" onClick={logout}>
                 Fazer Logout
