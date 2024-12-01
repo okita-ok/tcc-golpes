@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "bootswatch/dist/flatly/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
 import BootstrapClient from "./components/BootstrapClient";
 import Navbar from "./components/Navbar/Navbar";
