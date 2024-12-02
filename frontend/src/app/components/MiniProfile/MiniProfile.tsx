@@ -37,7 +37,7 @@ function MiniProfile() {
   return (
     <>
       <div
-        className="container-fluid mt-2 pt-2 pb-1 rounded-3 bg-secondary-subtle"
+        className="container-fluid mt-2 pt-2 pb-1 rounded-3 bg-primary-subtle"
         style={{ minHeight: "70px" }}
       >
         Olá, <b>{auth ? auth.name : "Faça seu Login!"}</b>
@@ -54,7 +54,7 @@ function MiniProfile() {
         )}
         {!auth && (
           <Link href={"/login"} className="d-grid">
-            <button className="btn btn-secondary mt-2 mb-2">Entrar</button>
+            <button className="btn btn-dark mt-2 mb-2">Entrar</button>
           </Link>
         )}
       </div>

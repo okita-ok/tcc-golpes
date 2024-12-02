@@ -20,6 +20,7 @@ interface IUnitContext {
   setUnidadesCompletadas: React.Dispatch<React.SetStateAction<CompletedUnit[]>>;
   pontos: number;
   useAdicionaPontos: () => void;
+  fetchCompletedUnits: () => void;
 }
 
 export const UnitContext = createContext<IUnitContext>({
@@ -27,6 +28,7 @@ export const UnitContext = createContext<IUnitContext>({
   setUnidadesCompletadas: () => {},
   pontos: 0,
   useAdicionaPontos: () => {},
+  fetchCompletedUnits: () => {},
 });
 
 const UnitProvider = ({ children }: UnitProviderProps) => {
@@ -36,7 +38,7 @@ const UnitProvider = ({ children }: UnitProviderProps) => {
   >([]);
   const [pontos, setPontos] = useState<number>(0);
 
-  useEffect(() => {
+  const fetchCompletedUnits = () => {
     if (auth) {
       api
         .get("/unit/completed")
@@ -46,6 +48,11 @@ const UnitProvider = ({ children }: UnitProviderProps) => {
         })
         .catch((err) => console.log(err));
     }
+  };
+
+  useEffect(() => {
+    fetchCompletedUnits();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth]);
 
   const useAdicionaPontos = () => {
@@ -57,6 +64,7 @@ const UnitProvider = ({ children }: UnitProviderProps) => {
     setUnidadesCompletadas,
     pontos,
     useAdicionaPontos,
+    fetchCompletedUnits,
   };
 
   return <UnitContext.Provider value={value}>{children}</UnitContext.Provider>;
