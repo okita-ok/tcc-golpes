@@ -19,16 +19,17 @@ type Inputs = {
 };
 
 export default function Quiz(props: IQuizProps) {
+  const { auth } = useContext(AuthContext);
+  const { unidadesCompletadas, fetchCompletedUnits } = useContext(UnitContext);
+
+  const [quizLock, setQuizLock] = useState(false);
+  const [feedback, setFeedback] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-
-  const { unidadesCompletadas, fetchCompletedUnits } = useContext(UnitContext);
-  const [quizLock, setQuizLock] = useState(false);
-  const [feedback, setFeedback] = useState<string | null>(null);
-  const { auth } = useContext(AuthContext);
 
   useEffect(() => {
     if (
@@ -79,58 +80,24 @@ export default function Quiz(props: IQuizProps) {
               <b>Pergunta: {props.quiz.question}</b>
             </u>
           </p>
-          <div className="m-1 form-check form-check-inline">
-            <label htmlFor="option1" className="form-label">
-              {props.quiz.option1}
-            </label>
-            <input
-              type="radio"
-              className="form-check-input"
-              id="option1"
-              value={1}
-              disabled={quizLock}
-              {...register("answer", { required: true })}
-            />
-          </div>
-          <div className="m-1 form-check form-check-inline">
-            <label htmlFor="option2" className="form-label">
-              {props.quiz.option2}
-            </label>
-            <input
-              type="radio"
-              className="form-check-input"
-              id="option2"
-              value={2}
-              disabled={quizLock}
-              {...register("answer", { required: true })}
-            />
-          </div>
-          <div className="m-1 form-check form-check-inline">
-            <label htmlFor="option3" className="form-label">
-              {props.quiz.option3}
-            </label>
-            <input
-              type="radio"
-              className="form-check-input"
-              id="option3"
-              value={3}
-              disabled={quizLock}
-              {...register("answer", { required: true })}
-            />
-          </div>
-          <div className="m-1 form-check form-check-inline">
-            <label htmlFor="option4" className="form-label">
-              {props.quiz.option4}
-            </label>
-            <input
-              type="radio"
-              className="form-check-input"
-              id="option4"
-              value={4}
-              disabled={quizLock}
-              {...register("answer", { required: true })}
-            />
-          </div>
+          {Array.from({ length: 4 }, (_, index) => {
+            const option = props.quiz.option[index];
+            return (
+              <div key={index} className="m-1 form-check form-check-inline">
+                <label htmlFor={`option${index + 1}`} className="form-label">
+                  {option}
+                </label>
+                <input
+                  type="radio"
+                  className="form-check-input"
+                  id={`option${index + 1}`}
+                  value={index + 1}
+                  disabled={quizLock}
+                  {...register("answer", { required: true })}
+                />
+              </div>
+            );
+          })}
 
           {errors.answer?.type === "required" && (
             <span className="text-danger">Escolha uma opção.</span>
