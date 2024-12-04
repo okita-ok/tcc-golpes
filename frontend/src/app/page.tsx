@@ -15,7 +15,7 @@ export default function Home() {
           vítima de algum golpe virtual.
         </p>
         <p>
-          Esses golpes virtuais, na grande maioria da vezes, se utiliza da
+          Esses golpes virtuais, na grande maioria da vezes, se utilizam da
           <b> Engenharia Social</b> para convencer você que teve seus dados
           roubados ou sua conta foi invadida, por exemplo. Essa técnica é
           utilizada para convencer você enviar seus dados para um criminoso ou
@@ -23,6 +23,11 @@ export default function Home() {
           site é feito para parecer com o site original, em especial sites de
           bancos.
         </p>
+        <h5 className="text-center mt-3">
+          <u>
+            Complete as unidades, aprenda a se proteger e ganhe pontos de XP!
+          </u>
+        </h5>
       </div>
       <Dashboard />
     </div>

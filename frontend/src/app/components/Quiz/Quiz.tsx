@@ -46,7 +46,7 @@ export default function Quiz(props: IQuizProps) {
     console.log(data);
     if (!auth) {
       setFeedback("Faça o login para saber a resposta correta!");
-      toast.error("Você não está logado.");
+      toast.error("Você não está logado.", { theme: "colored" });
     } else if (data.answer != props.quiz.answerIndex) {
       setFeedback("❌ Resposta incorreta, tente novamente.");
     } else {
@@ -57,7 +57,7 @@ export default function Quiz(props: IQuizProps) {
           fetchCompletedUnits();
           console.log(data);
           setQuizLock(true);
-          toast.success("Parabéns! Unidade Concluída!");
+          toast.success("Parabéns! Unidade Concluída!", { theme: "colored" });
         })
         .catch((err) => {
           if (err.response.status === 404)
@@ -71,9 +71,16 @@ export default function Quiz(props: IQuizProps) {
 
   return (
     <>
-      <div className="container m-1 p-3 rounded-3 bg-dark-subtle">
+      <div className="container mt-5 mb-5 p-3 rounded-3 bg-dark-subtle">
         <h4>Hora do Quiz!</h4>
         <form onSubmit={handleSubmit(onSubmit)}>
+          {quizLock && (
+            <span className="mt-3 mb-3 text-success-emphasis">
+              {
+                "✅ Parabéns, você completou a unidade e ganhou 100 pontos de XP! 🎉"
+              }
+            </span>
+          )}
           {feedback && <span className="text-danger">{feedback}</span>}
           <p>
             <u>

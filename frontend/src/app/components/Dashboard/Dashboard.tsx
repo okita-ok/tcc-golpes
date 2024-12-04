@@ -18,7 +18,10 @@ export const Dashboard = () => {
         {auth && (
           <>
             <h5>Unidades Concluídas: {unidadesCompletadas.length}</h5>
-            <h5>Pontos Obtidos: {unidadesCompletadas.length * 100} pts</h5>
+            <h5>
+              Pontos de XP Obtidos: {unidadesCompletadas.length * 100} pontos de
+              XP
+            </h5>
           </>
         )}
       </div>

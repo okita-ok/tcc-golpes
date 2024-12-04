@@ -20,13 +20,14 @@ function MiniProfile() {
       .post("/auth/logout")
       .then(() => {
         console.log("Logout realizado.");
-        toast.success("Logout feito com sucesso!");
+        toast.success("Logout feito com sucesso!", { theme: "colored" });
         localStorage.removeItem("auth");
         setAuth(null);
         router.push("/");
       })
       .catch((err) => {
-        if (err.response.status === 400) toast.error("O logout já foi feito");
+        if (err.response.status === 400)
+          toast.error("O logout já foi feito", { theme: "colored" });
         else {
           console.log("500 - Ocorreu um erro no servidor.");
         }
@@ -44,7 +45,7 @@ function MiniProfile() {
         <br />
         {auth && (
           <>
-            Pontuação: {pontos}
+            Pontuação: {pontos} pontos de XP
             <div className="d-grid">
               <button className="btn btn-danger mt-2 mb-2" onClick={logout}>
                 Fazer Logout
